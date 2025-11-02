@@ -5,10 +5,10 @@ layout: none
 {% assign new_base = "https://google-cloud-nightscout.github.io/docs/" %}
 
 {%- comment -%}
-If the page path starts with docs/Nightscout/, remove just that prefix.
-This works for both docs/Nightscout/*.md and docs/Nightscout/GCNS/*.md etc.
+Remove everything up to and including "docs/Nightscout/" from the current page path.
+That way, anything after that (like GCNS/Tips.html) is preserved correctly.
 {%- endcomment -%}
-{% assign target_path = page.path | remove_first: "docs/Nightscout/" | replace: ".md", ".html" %}
+{% assign target_path = page.path | replace_regex: '^.*docs/Nightscout/', '' | replace: '.md', '.html' %}
 
 <meta http-equiv="refresh" content="0; url={{ new_base }}{{ target_path }}">
 <script>
