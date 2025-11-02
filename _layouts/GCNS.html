@@ -3,6 +3,11 @@ layout: none
 ---
 
 {% assign new_base = "https://google-cloud-nightscout.github.io/docs/" %}
+
+{%- comment -%}
+If the page path starts with docs/Nightscout/, remove just that prefix.
+This works for both docs/Nightscout/*.md and docs/Nightscout/GCNS/*.md etc.
+{%- endcomment -%}
 {% assign target_path = page.path | remove_first: "docs/Nightscout/" | replace: ".md", ".html" %}
 
 <meta http-equiv="refresh" content="0; url={{ new_base }}{{ target_path }}">
