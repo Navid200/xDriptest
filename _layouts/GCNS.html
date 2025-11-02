@@ -3,32 +3,32 @@ layout: none
 ---
 
 {% assign new_base = "https://google-cloud-nightscout.github.io/docs/" %}
+{% assign target_path = page.path | remove_first: "docs/Nightscout/" | replace: ".md", ".html" %}
 
-<!doctype html>
-<html lang="{{ site.lang | default: "en-US" }}">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Redirecting...</title>
+<meta http-equiv="refresh" content="0; url={{ new_base }}{{ target_path }}">
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const msg = document.createElement("div");
+    msg.textContent = "Redirecting to the new Google Cloud Nightscout site...";
+    msg.style.cssText = "font-family:sans-serif;text-align:center;margin-top:2em;font-size:1.2em;color:#555;";
+    document.body.prepend(msg);
+  });
 
-    {% assign target_path = page.path | remove_first: "xDriptest/docs/Nightscout/" | replace: ".md", ".html" %}
+  (function(){
+    var target = "{{ new_base }}{{ target_path }}";
+    var q = window.location.search || '';
+    var h = window.location.hash || '';
+    setTimeout(function() {
+      window.location.replace(target + q + h);
+    }, 500);
+  })();
+</script>
 
-    <meta http-equiv="refresh" content="1; url={{ new_base }}{{ target_path }}">
-    
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        var target = "{{ new_base }}{{ target_path }}";
-        setTimeout(function() {
-          window.location.replace(target + window.location.search + window.location.hash);
-        }, 500);
-      });
-    </script>
-  </head>
-  <body>
-    <p style="text-align:center;margin-top:2em;font-family:sans-serif;">
-      This page has moved to
-      <a href="{{ new_base }}{{ target_path }}">the new Google Cloud Nightscout site</a>.
-    </p>
-  </body>
-</html>
+<noscript>
+  <p style="text-align:center;margin-top:2em;font-family:sans-serif;">
+    This page has moved to
+    <a href="{{ new_base }}{{ target_path }}">
+      the new Google Cloud Nightscout site
+    </a>.
+  </p>
+</noscript>
