@@ -2,40 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Redirecting…</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <title>Redirecting...</title>
     <script>
-      (function(){
-        const NEW_BASE = "https://google-cloud-nightscout.github.io";
-        const path = window.location.pathname;
+      // Redirect all pages except the main page
+      (function() {
+        var oldPath = window.location.pathname;
 
-        // Drop /xDriptest/ and /Nightscout/ from the path if present
-        let cleaned = path
-          .replace(/^\/xDriptest/, "")
-          .replace(/\/Nightscout/, "")
-          .replace(/^\/+/, ""); // remove any extra leading slash
+        // Remove source directories
+        oldPath = oldPath.replace("/xDriptest/", "/");
+        oldPath = oldPath.replace("/Nightscout/", "/");
 
-        // Build target URL (no extra /docs/)
-        const target = NEW_BASE + "/" + cleaned;
+        // Construct new URL
+        var newUrl = "https://google-cloud-nightscout.github.io" + oldPath;
 
-        // Meta refresh fallback
-        document.write('<meta http-equiv="refresh" content="0; url=' + target + '">');
-
-        // JS redirect
-        window.location.replace(
-          target + (window.location.search || "") + (window.location.hash || "")
-        );
+        // Redirect
+        window.location.replace(newUrl);
       })();
     </script>
   </head>
   <body>
-    <noscript>
-      <p style="font-family:sans-serif;text-align:center;margin-top:2rem;">
-        This page has moved to:
-        <a href="https://google-cloud-nightscout.github.io/">google-cloud-nightscout.github.io</a>
-      </p>
-    </noscript>
+    <p>If you are not redirected automatically, <a id="manualRedirect" href="#">click here</a>.</p>
+    <script>
+      document.getElementById("manualRedirect").href = window.location.href.replace("/xDriptest/", "/").replace("/Nightscout/", "/").replace("https://navid200.github.io", "https://google-cloud-nightscout.github.io");
+    </script>
   </body>
 </html>
