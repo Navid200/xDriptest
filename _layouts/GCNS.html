@@ -1,36 +1,31 @@
-<!doctype html>
-<html lang="{{ site.lang | default: "en-US" }}">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-    <title>{{ page.title }}</title>
-    <meta name="robots" content="noindex, nofollow">
-    
-    {% assign new_base = "https://google-cloud-nightscout.github.io/" %}
+---
+layout: none
+---
 
-    {% if page.path == "docs/Nightscout/GoogleCloud.md" %}
-      {% assign redirect_target = new_base %}
-    {% else %}
-      {% assign redirect_target = new_base | append: page.path | replace: 'xDrip/docs/Nightscout/', 'docs/' | replace: '.md', '.html' %}
-    {% endif %}
+{% assign new_base = "https://google-cloud-nightscout.github.io/docs/" %}
+{% assign redirect_target = new_base | append: page.path | replace: 'xDrip/docs/Nightscout/', '' | replace: '.md', '.html' %}
 
-    <meta http-equiv="refresh" content="1; url={{ redirect_target }}">
-    <script>
-      setTimeout(function() {
-        window.location.replace("{{ redirect_target }}");
-      }, 1000);
-    </script>
+<meta http-equiv="refresh" content="1; url={{ redirect_target }}">
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var msg = document.createElement("div");
+    msg.textContent = "Redirecting to the new Google Cloud Nightscout site...";
+    msg.style.cssText = "font-family:sans-serif;text-align:center;margin-top:2em;font-size:1.2em;color:#555;";
+    document.body.prepend(msg);
+  });
 
-  </head>
-  <body>
-    <noscript>
-      <p style="text-align:center;margin-top:2em;font-family:sans-serif;">
-        This page has moved to
-        <a href="{{ redirect_target }}">
-          the new Google Cloud Nightscout site
-        </a>.
-      </p>
-    </noscript>
-  </body>
-</html>
+  (function() {
+    var q = window.location.search || '';
+    var h = window.location.hash || '';
+    setTimeout(function() {
+      window.location.replace("{{ redirect_target }}" + q + h);
+    }, 1000);
+  })();
+</script>
+
+<noscript>
+  <p style="text-align:center;margin-top:2em;font-family:sans-serif;">
+    This page has moved to
+    <a href="{{ redirect_target }}">the new Google Cloud Nightscout site</a>.
+  </p>
+</noscript>
