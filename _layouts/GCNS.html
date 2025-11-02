@@ -2,15 +2,22 @@
 layout: none
 ---
 
-{% assign new_base = "https://google-cloud-nightscout.github.io/docs/" %}
+{%- comment -%}
+Base URL of the new site (without trailing "docs/")
+{%- endcomment -%}
+{% assign new_base = "https://google-cloud-nightscout.github.io" %}
 
 {%- comment -%}
-Remove everything up to and including "docs/Nightscout/" from the current page path.
-That way, anything after that (like GCNS/Tips.html) is preserved correctly.
+Compute redirect path.
+Remove everything up to and including "xDriptest/docs/Nightscout/" or "docs/Nightscout/"
+from the current file path, ensuring we handle any subfolder like GCNS/.
 {%- endcomment -%}
-{% assign target_path = page.path | replace_regex: '^.*docs/Nightscout/', '' | replace: '.md', '.html' %}
+{% assign target_path = page.path
+   | replace_regex: '^.*xDriptest/docs/Nightscout/', 'docs/'
+   | replace_regex: '^.*docs/Nightscout/', 'docs/'
+   | replace: '.md', '.html' %}
 
-<meta http-equiv="refresh" content="0; url={{ new_base }}{{ target_path }}">
+<meta http-equiv="refresh" content="0; url={{ new_base }}/{{ target_path }}">
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const msg = document.createElement("div");
@@ -20,20 +27,18 @@ That way, anything after that (like GCNS/Tips.html) is preserved correctly.
   });
 
   (function(){
-    var target = "{{ new_base }}{{ target_path }}";
+    var target = "{{ new_base }}/{{ target_path }}";
     var q = window.location.search || '';
     var h = window.location.hash || '';
     setTimeout(function() {
       window.location.replace(target + q + h);
-    }, 500);
+    }, 400);
   })();
 </script>
 
 <noscript>
   <p style="text-align:center;margin-top:2em;font-family:sans-serif;">
     This page has moved to
-    <a href="{{ new_base }}{{ target_path }}">
-      the new Google Cloud Nightscout site
-    </a>.
+    <a href="{{ new_base }}/{{ target_path }}">the new Google Cloud Nightscout site</a>.
   </p>
 </noscript>
