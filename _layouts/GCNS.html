@@ -2,30 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-    <title>Redirecting...</title>
+    <title>Redirecting…</title>
     <script>
-      // Redirect all pages except the main page
       (function() {
+        // Get the current path
         var oldPath = window.location.pathname;
 
-        // Remove source directories
-        oldPath = oldPath.replace("/xDriptest/", "/");
+        // Remove /xDriptest/ from the start
+        oldPath = oldPath.replace(/^\/xDriptest\//, "/");
+
+        // Remove /Nightscout/ from the path
         oldPath = oldPath.replace("/Nightscout/", "/");
 
         // Construct new URL
-        var newUrl = "https://google-cloud-nightscout.github.io" + oldPath;
+        var newURL = "https://google-cloud-nightscout.github.io" + oldPath;
 
-        // Redirect
-        window.location.replace(newUrl);
+        // Redirect automatically
+        window.location.replace(newURL);
       })();
     </script>
   </head>
   <body>
     <p>If you are not redirected automatically, <a id="manualRedirect" href="#">click here</a>.</p>
     <script>
-      document.getElementById("manualRedirect").href = window.location.href.replace("/xDriptest/", "/").replace("/Nightscout/", "/").replace("https://navid200.github.io", "https://google-cloud-nightscout.github.io");
+      // Update manual link
+      var oldPath = window.location.pathname;
+      oldPath = oldPath.replace(/^\/xDriptest\//, "/").replace("/Nightscout/", "/");
+      document.getElementById("manualRedirect").href = "https://google-cloud-nightscout.github.io" + oldPath;
     </script>
   </body>
 </html>
