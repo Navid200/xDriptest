@@ -3,49 +3,34 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    {% comment %}
-      Base URL of the new site
-      All redirects will use this
-    {% endcomment %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <title>{{ page.title }}</title>
+    <meta name="robots" content="noindex, nofollow">
+    
     {% assign new_base = "https://google-cloud-nightscout.github.io/" %}
 
-    {% comment %}
-      Determine the target URL
-      - If this page is GoogleCloud.md (the old main page), redirect to new /
-      - Otherwise, redirect to new site preserving relative path without Nightscout/
-    {% endcomment %}
     {% if page.path == "docs/Nightscout/GoogleCloud.md" %}
-      {% assign target = new_base %}
+      {% assign redirect_target = new_base %}
     {% else %}
-      {% assign target = new_base | append: "docs/" | append: page.path | remove: "Nightscout/" | replace: ".md", ".html" %}
+      {% assign redirect_target = new_base | append: page.path | replace: 'xDrip/docs/Nightscout/', 'docs/' | replace: '.md', '.html' %}
     {% endif %}
 
-    {% comment %}
-      Canonical for search engines
-    {% endcomment %}
-    <link rel="canonical" href="{{ target }}" />
-
-    <title>{{ page.title }}</title>
-    <meta name="description" content="{{ page.description | default: 'Redirecting to Google Cloud Nightscout site.' }}">
-
-    {% comment %}
-      Fast redirect for users
-    {% endcomment %}
-    <meta http-equiv="refresh" content="1; url={{ target }}">
-
-    {% comment %}
-      Optional message if redirect fails
-    {% endcomment %}
-    <style>
-      body { font-family: sans-serif; text-align: center; padding: 3em; color: #333; }
-      a { color: #0066cc; }
-    </style>
+    <meta http-equiv="refresh" content="1; url={{ redirect_target }}">
+    <script>
+      setTimeout(function() {
+        window.location.replace("{{ redirect_target }}");
+      }, 1000);
+    </script>
 
   </head>
   <body>
-    <p>Redirecting to the new Google Cloud Nightscout site…</p>
-    <p>If you are not redirected automatically, <a href="{{ target }}">click here</a>.</p>
+    <noscript>
+      <p style="text-align:center;margin-top:2em;font-family:sans-serif;">
+        This page has moved to
+        <a href="{{ redirect_target }}">
+          the new Google Cloud Nightscout site
+        </a>.
+      </p>
+    </noscript>
   </body>
 </html>
