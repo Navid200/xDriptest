@@ -1,44 +1,41 @@
----
-layout: none
----
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Redirecting…</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
 
-{%- comment -%}
-Base URL of the new site (without trailing "docs/")
-{%- endcomment -%}
-{% assign new_base = "https://google-cloud-nightscout.github.io" %}
+    <script>
+      (function(){
+        const NEW_BASE = "https://google-cloud-nightscout.github.io";
+        const path = window.location.pathname;
 
-{%- comment -%}
-Compute redirect path.
-Remove everything up to and including "xDriptest/docs/Nightscout/" or "docs/Nightscout/"
-from the current file path, ensuring we handle any subfolder like GCNS/.
-{%- endcomment -%}
-{% assign target_path = page.path
-   | replace_regex: '^.*xDriptest/docs/Nightscout/', 'docs/'
-   | replace_regex: '^.*docs/Nightscout/', 'docs/'
-   | replace: '.md', '.html' %}
+        // Drop /xDriptest/ and /Nightscout/ from the path if present
+        let cleaned = path
+          .replace(/^\/xDriptest/, "")
+          .replace(/\/Nightscout/, "")
+          .replace(/^\/+/, ""); // remove any extra leading slash
 
-<meta http-equiv="refresh" content="0; url={{ new_base }}/{{ target_path }}">
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const msg = document.createElement("div");
-    msg.textContent = "Redirecting to the new Google Cloud Nightscout site...";
-    msg.style.cssText = "font-family:sans-serif;text-align:center;margin-top:2em;font-size:1.2em;color:#555;";
-    document.body.prepend(msg);
-  });
+        // Build target URL (no extra /docs/)
+        const target = NEW_BASE + "/" + cleaned;
 
-  (function(){
-    var target = "{{ new_base }}/{{ target_path }}";
-    var q = window.location.search || '';
-    var h = window.location.hash || '';
-    setTimeout(function() {
-      window.location.replace(target + q + h);
-    }, 400);
-  })();
-</script>
+        // Meta refresh fallback
+        document.write('<meta http-equiv="refresh" content="0; url=' + target + '">');
 
-<noscript>
-  <p style="text-align:center;margin-top:2em;font-family:sans-serif;">
-    This page has moved to
-    <a href="{{ new_base }}/{{ target_path }}">the new Google Cloud Nightscout site</a>.
-  </p>
-</noscript>
+        // JS redirect
+        window.location.replace(
+          target + (window.location.search || "") + (window.location.hash || "")
+        );
+      })();
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <p style="font-family:sans-serif;text-align:center;margin-top:2rem;">
+        This page has moved to:
+        <a href="https://google-cloud-nightscout.github.io/">google-cloud-nightscout.github.io</a>
+      </p>
+    </noscript>
+  </body>
+</html>
