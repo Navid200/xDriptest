@@ -3,29 +3,28 @@ layout: none
 ---
 
 {% assign new_base = "https://google-cloud-nightscout.github.io/docs/" %}
-{% assign redirect_target = new_base | append: page.path | replace: 'xDrip/docs/Nightscout/', '' | replace: '.md', '.html' %}
 
-<meta http-equiv="refresh" content="1; url={{ redirect_target }}">
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var msg = document.createElement("div");
-    msg.textContent = "Redirecting to the new Google Cloud Nightscout site...";
-    msg.style.cssText = "font-family:sans-serif;text-align:center;margin-top:2em;font-size:1.2em;color:#555;";
-    document.body.prepend(msg);
-  });
-
-  (function() {
-    var q = window.location.search || '';
-    var h = window.location.hash || '';
-    setTimeout(function() {
-      window.location.replace("{{ redirect_target }}" + q + h);
-    }, 1000);
-  })();
-</script>
-
-<noscript>
-  <p style="text-align:center;margin-top:2em;font-family:sans-serif;">
-    This page has moved to
-    <a href="{{ redirect_target }}">the new Google Cloud Nightscout site</a>.
-  </p>
-</noscript>
+<!doctype html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Redirecting...</title>
+    <meta http-equiv="refresh" content="1; url={{ new_base }}{{ page.path | remove: 'xDriptest/docs/Nightscout/' | replace: '.md', '.html' }}">
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var target = "{{ new_base }}{{ page.path | remove: 'xDriptest/docs/Nightscout/' | replace: '.md', '.html' }}";
+        setTimeout(function() {
+          window.location.replace(target + window.location.search + window.location.hash);
+        }, 500);
+      });
+    </script>
+  </head>
+  <body>
+    <p style="text-align:center;margin-top:2em;font-family:sans-serif;">
+      This page has moved to
+      <a href="{{ new_base }}{{ page.path | remove: 'xDriptest/docs/Nightscout/' | replace: '.md', '.html' }}">the new Google Cloud Nightscout site</a>.
+    </p>
+  </body>
+</html>
